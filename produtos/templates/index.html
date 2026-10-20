@@ -1,0 +1,207 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>EJ Serviços | Controle de Produtos</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body>
+
+    <header class="cabecalho">
+        <div class="marca">
+            <img
+                src="{% static 'img/ej-servicos.png' %}?v=2"
+                alt="Logotipo EJ Serviços"
+                class="logo"
+            >
+
+            <div>
+                <h1>EJ Serviços</h1>
+                <p>Sistema de Controle de Produtos</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="conteudo">
+
+        <section class="painel">
+
+            <div class="titulo-produtos">
+                <h2>Produtos Cadastrados</h2>
+
+                <button type="button" id="btn-novo">
+                    + Novo Produto
+                </button>
+            </div>
+
+            <div class="area-pesquisa">
+                <input
+                    type="search"
+                    id="pesquisa-produto"
+                    placeholder="Pesquisar por nome, ID ou QR Code..."
+                    aria-label="Pesquisar produtos"
+                >
+
+                <button type="button" id="btn-pesquisar">
+                    Pesquisar
+                </button>
+
+                <button type="button" id="btn-limpar">
+                    Limpar
+                </button>
+            </div>
+
+            <div class="tabela-container">
+                <table class="tabela-produtos">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nome do Produto</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="lista-produtos">
+                        <tr>
+                            <td colspan="5">Carregando produtos...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Modal de detalhes do produto -->
+    <div id="modal-detalhes" class="modal" hidden>
+        <div class="modal-conteudo">
+            <div class="modal-cabecalho">
+                <h2>Detalhes do Produto</h2>
+                <button type="button" id="btn-fechar-modal"
+                        class="btn-fechar" aria-label="Fechar">
+                    &times;
+                </button>
+            </div>
+
+            <div id="detalhes-produto" class="detalhes-produto"></div>
+        </div>
+    </div>
+
+    <!-- Modal de cadastro de produtos -->
+    <div id="modal-cadastro" class="modal" hidden>
+        <div class="modal-conteudo">
+
+            <div class="modal-cabecalho">
+                <h2>Novo Produto</h2>
+
+                <button
+                    type="button"
+                    id="btn-fechar-cadastro"
+                    class="btn-fechar"
+                    aria-label="Fechar"
+                >
+                    &times;
+                </button>
+            </div>
+
+            <form id="form-produto">
+
+                <div class="form-grid">
+
+                    <div class="form-grupo">
+                        <label for="nome_produto">Nome do Produto *</label>
+                        <input type="text" id="nome_produto"
+                            maxlength="150" required>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="id_qrcode">ID QR Code *</label>
+                        <input type="text" id="id_qrcode"
+                            maxlength="100" required>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="status_produto">Status *</label>
+
+                        <select id="status_produto" required>
+                            <option value="ATIVO">ATIVO</option>
+                            <option value="INATIVO">INATIVO</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="tipo_produto">Tipo de Produto *</label>
+                        <select id="tipo_produto" required>
+                            <option value="">Selecione...</option>
+                            <option value="VENDA">Venda</option>
+                            <option value="CONSULTA">Consulta</option>
+                        </select>
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="nome_imagem">Nome da Imagem</label>
+                        <input type="text" id="nome_imagem"
+                            maxlength="255">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="local_instalacao">Local de Instalação</label>
+                        <input type="text" id="local_instalacao"
+                            maxlength="150">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="tipo_gas">Tipo de Gás</label>
+                        <input type="text" id="tipo_gas"
+                            maxlength="80">
+                    </div>
+
+                    <div class="form-grupo">
+                        <label for="situacao_produto">Situação do Produto</label>
+                        <input type="text" id="situacao_produto"
+                            maxlength="100">
+                    </div>
+
+                    <div class="form-grupo form-largura-total">
+                        <label for="descricao_tecnica">Descrição Técnica</label>
+                        <textarea id="descricao_tecnica" rows="4"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="form-acoes">
+                    <button type="button" id="btn-cancelar-cadastro"
+                            class="btn-cancelar">
+                        Cancelar
+                    </button>
+
+                    <button type="submit" id="btn-salvar-produto">
+                        Salvar Produto
+                    </button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+        <!-- Área de notificações -->
+    <div
+        id="area-notificacoes"
+        class="area-notificacoes"
+        role="status"
+        aria-live="polite"
+    ></div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+
+</body>
+</html>
